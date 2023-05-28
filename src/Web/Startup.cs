@@ -26,11 +26,15 @@
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
             services.AddSingleton<ITodoRepository, TodoRepository>();
 
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = Configuration.GetConnectionString("Redis");
+            });
+
             services.AddControllers()
             .AddJsonOptions(options =>
                options.JsonSerializerOptions.PropertyNamingPolicy = null);
 
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
         }
@@ -46,6 +50,8 @@
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
+
+            app.UseResponseCaching();
 
             app.UseSwagger();
             app.UseSwaggerUI();

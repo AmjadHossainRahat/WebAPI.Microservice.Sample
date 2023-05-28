@@ -8,7 +8,7 @@ RUN dotnet restore
 
 # Copy the remaining files and build the app
 COPY src/Web/ .
-RUN dotnet build --configuration Release --no-restore
+RUN dotnet build --configuration Release
 
 # Publish the app
 RUN dotnet publish --configuration Release --no-build --output out

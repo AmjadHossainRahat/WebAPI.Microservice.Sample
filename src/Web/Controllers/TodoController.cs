@@ -68,6 +68,7 @@
         }
 
         [HttpGet("{id}", Name = "GetById")]
+        [ResponseCache(Duration = 10, Location = ResponseCacheLocation.Client)]
         public async Task<IActionResult> GetById(int id)
         {
             _logger.Log(LogLevel.Information, "TodoController->GetById START");
@@ -85,6 +86,7 @@
         }
 
         [HttpGet(Name = "GetAll")]
+        [ResponseCache(Duration = 5, Location = ResponseCacheLocation.Client)]
         public async Task<IActionResult> GetAll()
         {
             _logger.Log(LogLevel.Information, "TodoController->GetAll START");
